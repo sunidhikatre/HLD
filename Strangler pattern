@@ -1,0 +1,56 @@
+
+Strangler Pattern
+The Strangler Pattern is a software development strategy used to gradually refactor or migrate a legacy system to a new system without disrupting the existing functionality. It allows for incremental replacement, reducing the risk of failure by enabling gradual transition.
+
+How the Strangler Pattern Works:
+Identify the Legacy System:
+
+Identify the parts of the system that need to be replaced or refactored.
+Example: A legacy monolithic e-commerce platform.
+Build the New System or Component:
+
+Start building the new system or module alongside the legacy system.
+Example: Build a new microservice-based product catalog system.
+Route Requests to New and Old Systems:
+
+Set up a routing mechanism that directs a portion of the traffic to the new system while the legacy system continues to handle the rest.
+Example: Requests to update product listings could go to the new service, while browsing remains on the legacy system.
+Incrementally Migrate Functionality:
+
+Gradually move more functionality from the legacy system to the new system in phases, replacing old parts of the system as the new system is completed and tested.
+Example: Move the checkout process to the new system after product catalog and order services are migrated.
+Decommission Legacy Components:
+
+Once all functionality has been migrated to the new system, retire or decommission the old system.
+Example: After the full migration, the legacy catalog and order systems are removed.
+Advantages of the Strangler Pattern:
+Low Risk:
+
+Since only a part of the system is replaced at any given time, there's minimal disruption to ongoing operations.
+Incremental Change:
+
+Allows for gradual adoption of new technology without needing a complete rewrite, which reduces risk and cost.
+Allows for Testing:
+
+The new system can be tested in parallel with the legacy system, enabling real-world validation before full migration.
+Easier Rollback:
+
+If an issue arises, it’s easier to revert back to the legacy system or halt further migration.
+Disadvantages of the Strangler Pattern:
+Complexity in Routing:
+
+The routing logic between the old and new systems can become complex as more functionality is migrated, increasing the operational overhead.
+Increased Maintenance:
+
+During the transition, both the legacy and new systems need to be maintained, leading to extra work and potential duplication.
+Possible Duplication of Functionality:
+
+There might be temporary duplication of features across the old and new systems as functionality is transitioned.
+Example Use Case:
+Imagine a traditional monolithic application that handles all the functionalities of an online store, from catalog management to orders and payments. A company wants to migrate to a microservices-based architecture. The strangler pattern allows them to:
+
+Replace one part of the monolithic system (e.g., the catalog) with a microservice.
+Route catalog-related requests to the new microservice while leaving the rest of the monolith intact.
+Gradually replace other features (like orders, payments) until the entire monolith is replaced.
+Finally, decommission the old monolith once the transition is complete.
+The Strangler Pattern helps in migrating legacy systems gradually without causing disruption, ensuring a smooth transition to new architectures.
