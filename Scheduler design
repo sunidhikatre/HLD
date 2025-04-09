@@ -1,0 +1,38 @@
+https://medium.com/@mayilb77/design-a-distributed-job-scheduler-for-millions-of-tasks-in-daily-operations-4132dc6d645f
+
+
+
+System Components and Flow
+🧑‍💻 1. User Request
+Multiple users send task/job creation requests (e.g., "Send report at 6 PM").
+
+🔀 2. Load Balancer
+Distributes user traffic to job-service instances for scalability and high availability.
+
+⚙️ 3. Job Service
+Receives user requests and writes them to Cassandra DB.
+
+A task might include: taskId, scheduleTime, payload, etc.
+
+🗃️ 4. Cassandra (Database)
+Stores all job metadata (job definition, status, timestamps).
+
+Acts as the source of truth for scheduled jobs.
+
+📅 5. Scheduling Service
+Periodically polls Cassandra to find jobs due for execution.
+
+Runs in multiple nodes (with one leader/master elected using Hazelcast).
+
+The leader reads due jobs and pushes them to Kafka.
+
+📬 6. Kafka Queue
+Holds jobs ready for execution.
+
+Ensures reliable, distributed delivery to the execution layer.
+
+🏃 7. Execution Service
+Subscribes to Kafka and executes the job (e.g., send an email, trigger a script).
+
+After execution, it updates the status back to Cassandra.
+
